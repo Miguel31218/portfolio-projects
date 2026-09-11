@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es" className="scroll-smooth">
       <body
-        className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} bg-ink text-text font-body antialiased`}
+        className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} bg-white text-text font-body antialiased`}
       >
         {children}
       </body>
