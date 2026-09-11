@@ -14,7 +14,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-white/90 backdrop-blur-md">
+    <header className="relative z-10">
       <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-4">
         <a href="#top" className="flex items-center gap-3">
           {/* Placeholder circular para tu foto. Cuando tengas una,

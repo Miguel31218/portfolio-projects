@@ -2,11 +2,10 @@
 
 import { useMotionValue, motion, useMotionTemplate } from "framer-motion";
 
-// Fondo de puntos + "spotlight" ámbar que sigue al cursor. Adaptado del
-// patrón de Aceternity UI (ui.aceternity.com/components/hero-highlight)
-// a la paleta clara del sitio, sin dependencias extra de Tailwind: los
-// puntos se dibujan con radial-gradient directo en inline style.
-export function HeroHighlight({ children, className = "", containerClassName = "" }) {
+// Fondo de puntos + "spotlight" lavanda que sigue al cursor, a todo lo
+// ancho (sin borde ni esquinas redondeadas: cubre navbar + hero como un
+// solo bloque visual).
+export function HeroHighlight({ children, className = "", containerClassName = "", id }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -16,11 +15,12 @@ export function HeroHighlight({ children, className = "", containerClassName = "
     mouseY.set(e.clientY - top);
   }
 
-  const maskImage = useMotionTemplate`radial-gradient(220px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 80%)`;
+  const maskImage = useMotionTemplate`radial-gradient(260px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 80%)`;
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl border border-border ${containerClassName}`}
+      id={id}
+      className={`group relative w-full overflow-hidden ${containerClassName}`}
       onMouseMove={handleMouseMove}
     >
       {/* Capa base: puntos tenues, siempre visibles */}
@@ -35,7 +35,7 @@ export function HeroHighlight({ children, className = "", containerClassName = "
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
-          backgroundImage: "radial-gradient(circle, #F5A623 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, #B0B3FF 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage,
           WebkitMaskImage: maskImage,
@@ -46,7 +46,9 @@ export function HeroHighlight({ children, className = "", containerClassName = "
   );
 }
 
-// Texto con barrido de color animado al entrar en pantalla.
+// Texto con barrido de degradado lavanda → lila, animado al entrar en
+// pantalla. Tono suave (con opacidad reducida) para que no compita con el
+// texto oscuro por encima.
 export function Highlight({ children, className = "" }) {
   return (
     <motion.span
@@ -59,7 +61,7 @@ export function Highlight({ children, className = "" }) {
         backgroundPosition: "left center",
         display: "inline",
       }}
-      className={`relative rounded-sm bg-gradient-to-r from-amber/50 to-amber/30 px-1 pb-0.5 ${className}`}
+      className={`relative rounded-sm bg-gradient-to-r from-lavender/60 to-lilac/50 px-1 pb-0.5 ${className}`}
     >
       {children}
     </motion.span>
