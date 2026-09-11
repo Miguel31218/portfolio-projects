@@ -5,9 +5,9 @@ import { Menu, X } from "lucide-react";
 import { profile } from "@/lib/data";
 
 const links = [
-  { href: "#proyectos", label: "Proyectos" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "#proyectos", label: "proyectos", number: "01" },
+  { href: "#skills", label: "skills", number: "02" },
+  { href: "#contacto", label: "contacto", number: "03" },
 ];
 
 export default function Nav() {
@@ -15,16 +15,22 @@ export default function Nav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-ink/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-5">
         <a href="#top" className="font-display text-sm font-semibold tracking-tight text-text">
           {profile.name}
         </a>
 
-        <ul className="hidden gap-8 font-body text-sm text-muted md:flex">
+        <ul className="hidden gap-8 md:flex">
           {links.map((link) => (
-            <li key={link.href}>
-              <a href={link.href} className="transition-colors hover:text-amber">
-                {link.label}
+            <li key={link.href} className="text-center">
+              <a href={link.href} className="group block">
+                <span className="block font-mono text-[10px] leading-none text-muted/60">
+                  {link.number}
+                </span>
+                <span className="mt-1 block font-mono text-sm text-muted transition-colors group-hover:text-amber">
+                  {"// "}
+                  {link.label}
+                </span>
               </a>
             </li>
           ))}
@@ -41,14 +47,16 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <ul className="flex flex-col gap-1 border-t border-border px-6 py-4 font-body text-sm text-muted md:hidden">
+        <ul className="flex flex-col gap-1 border-t border-border px-6 py-4 md:hidden">
           {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block py-2 transition-colors hover:text-amber"
+                className="flex items-baseline gap-2 py-2 font-mono text-sm text-muted transition-colors hover:text-amber"
               >
+                <span className="text-[10px] text-muted/60">{link.number}</span>
+                {"// "}
                 {link.label}
               </a>
             </li>
