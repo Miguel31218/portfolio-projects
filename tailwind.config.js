@@ -8,16 +8,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: "#0B0D12",
-        surface: "#14171F",
-        "surface-hover": "#191D27",
-        border: "#242833",
-        text: "#E7E9EE",
-        muted: "#8B93A7",
+        // Fondo de página: blanco puro por diseño.
+        surface: "#F6F6F7",
+        "surface-hover": "#EFEFF0",
+        border: "#E4E4E7",
+        // Texto principal (títulos) y texto secundario (descripciones).
+        text: "#373A3C",
+        muted: "#828385",
+        // Acento de marca: se usa en todos los CTA, hovers y badges del sitio.
         amber: "#F5A623",
-        "amber-dim": "#8A5D1D",
-        mint: "#6EE7B7",
-        "mint-dim": "#3E6E5B",
+        "amber-dim": "#B9791A",
+        // Acento reservado para "Ciencia de Datos" (más oscuro que en el
+        // tema anterior, para que siga siendo legible sobre fondo blanco).
+        mint: "#0D9488",
+        "mint-dim": "#A7D9CB",
+        // Negro casi puro: se usa solo para overlays oscuros sobre imágenes
+        // y texto sobre botones claros — ya no es el fondo de la página.
+        ink: "#0B0D12",
+        // Acentos puntuales pedidos explícitamente: saludo del Hero y
+        // check de verificación junto al nombre. Úsalos solo ahí.
+        pink: "#FF1447",
+        verified: "#1DA1F2",
       },
       fontFamily: {
         display: ["var(--font-space-grotesk)", "sans-serif"],
