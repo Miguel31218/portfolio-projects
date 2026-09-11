@@ -47,10 +47,25 @@ module.exports = {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        "float-a": {
+          "0%, 100%": { transform: "translateY(0px) rotate(-3deg)" },
+          "50%": { transform: "translateY(-16px) rotate(2deg)" },
+        },
+        "float-b": {
+          "0%, 100%": { transform: "translateY(0px) rotate(4deg)" },
+          "50%": { transform: "translateY(-22px) rotate(-2deg)" },
+        },
+        "float-c": {
+          "0%, 100%": { transform: "translateY(0px) rotate(-2deg)" },
+          "50%": { transform: "translateY(-12px) rotate(4deg)" },
+        },
       },
       animation: {
         blink: "blink 1s step-start infinite",
         "fade-up": "fade-up 0.6s ease-out forwards",
+        "float-a": "float-a 6s ease-in-out infinite",
+        "float-b": "float-b 7.5s ease-in-out infinite",
+        "float-c": "float-c 5.5s ease-in-out infinite",
       },
     },
   },
