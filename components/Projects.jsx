@@ -1,5 +1,4 @@
-import { projects, projectCategories } from "@/lib/data";
-import ProjectSection from "./ProjectSection";
+import ProjectsGrid from "./ProjectsGrid";
 
 export default function Projects() {
   return (
@@ -11,16 +10,7 @@ export default function Projects() {
         Productos que he construido de principio a fin, y hacia dónde estoy llevando ese trabajo.
       </p>
 
-      <div className="mt-12 space-y-16">
-        {projectCategories.map((cat) => (
-          <ProjectSection
-            key={cat.id}
-            label={cat.label}
-            accent={cat.accent}
-            projects={projects.filter((p) => p.category === cat.id)}
-          />
-        ))}
-      </div>
+      <ProjectsGrid />
     </section>
   );
 }
