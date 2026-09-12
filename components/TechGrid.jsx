@@ -89,7 +89,7 @@ export default function TechGrid() {
               padre son lo que le da profundidad real al giro en vez de un
               simple achatado en 2D. */}
           <motion.div
-            animate={prefersReducedMotion ? undefined : { rotateX: [0, 360] }}
+            animate={prefersReducedMotion ? undefined : { rotateX: 360 }}
             transition={
               prefersReducedMotion
                 ? undefined
