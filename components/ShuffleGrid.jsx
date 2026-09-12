@@ -60,7 +60,7 @@ function TechCard({ name, Icon }) {
     <motion.div
       layout
       transition={{ duration: 1.5, type: "spring" }}
-      className="group flex h-full w-full flex-col items-center justify-center gap-1.5 rounded-2xl border border-border bg-surface p-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10"
+      className="group flex h-full w-full flex-col items-center justify-center gap-1.5 rounded-2xl border border-border bg-surface p-2 transition-colors duration-300 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10"
     >
       <Icon
         size={24}
