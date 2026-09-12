@@ -8,7 +8,7 @@
   }
 
   ::selection {
-    @apply bg-amber/30 text-text;
+    @apply bg-accent/30 text-text;
   }
 
   :focus-visible {
