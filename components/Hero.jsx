@@ -1,6 +1,6 @@
 import { profile } from "@/lib/data";
 import Nav from "./Nav";
-import ShuffleGrid from "./ShuffleGrid";
+import TechGrid from "./TechGrid";
 
 export default function Hero() {
   return (
@@ -29,7 +29,7 @@ export default function Hero() {
           </a>
         </div>
 
-        <ShuffleGrid />
+        <TechGrid />
       </div>
     </section>
   );
