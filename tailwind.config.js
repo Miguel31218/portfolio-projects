@@ -25,14 +25,8 @@ module.exports = {
         // Negro casi puro: se usa solo para overlays oscuros sobre imágenes
         // y texto sobre botones claros — ya no es el fondo de la página.
         ink: "#0B0D12",
-        // Acentos puntuales pedidos explícitamente: saludo del Hero y
-        // check de verificación junto al nombre. Úsalos solo ahí.
-        pink: "#FF1447",
+        // Check de verificación junto al nombre en el nav.
         verified: "#1DA1F2",
-        // Acento del Hero: botón principal, texto resaltado y spotlight
-        // del fondo de puntos.
-        lavender: "#B0B3FF",
-        lilac: "#CCB2FF",
       },
       fontFamily: {
         display: ["var(--font-space-grotesk)", "sans-serif"],
@@ -60,3 +54,4 @@ module.exports = {
   },
   plugins: [],
 };
+
