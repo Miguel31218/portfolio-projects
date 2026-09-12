@@ -13,9 +13,14 @@ const accentStyles = {
   },
 };
 
-export default function ProjectCard({ project, accent = "amber" }) {
+// lang: "es" | "en" — resuelve description/status (objetos bilingües en
+// data.js). t: t.projects del diccionario de traducciones (labels de UI).
+export default function ProjectCard({ project, accent = "amber", lang, t }) {
   const { title, description, tech, github, demo, featured, status } = project;
   const styles = accentStyles[accent] ?? accentStyles.amber;
+
+  const descriptionText = description[lang];
+  const statusText = status ? status[lang] : null;
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white transition-shadow hover:shadow-lg hover:shadow-black/5">
@@ -30,9 +35,9 @@ export default function ProjectCard({ project, accent = "amber" }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
 
-        {(featured || status) && (
+        {(featured || statusText) && (
           <span className="absolute right-3 top-3 rounded-full border border-white/30 bg-white/10 px-2.5 py-1 font-mono text-[11px] text-white backdrop-blur-sm">
-            {featured ? "principal" : status}
+            {featured ? t.featured : statusText}
           </span>
         )}
 
@@ -44,15 +49,15 @@ export default function ProjectCard({ project, accent = "amber" }) {
       {/* Info siempre visible — no depende de hover, así funciona igual en
           desktop y en móvil (donde no existe el hover). */}
       <div className="flex flex-1 flex-col gap-3 p-4">
-        <p className="text-sm leading-relaxed text-muted">{description}</p>
+        <p className="text-sm leading-relaxed text-muted">{descriptionText}</p>
 
         <ul className="flex flex-wrap gap-2">
-          {tech.map((t) => (
+          {tech.map((techItem) => (
             <li
-              key={t}
+              key={techItem}
               className={`rounded-full border px-2.5 py-1 font-mono text-[11px] ${styles.badge}`}
             >
-              {t}
+              {techItem}
             </li>
           ))}
         </ul>
@@ -65,7 +70,7 @@ export default function ProjectCard({ project, accent = "amber" }) {
               rel="noopener noreferrer"
               className={`flex items-center gap-1.5 text-sm text-muted transition-colors ${styles.link}`}
             >
-              <Github size={15} /> Código
+              <Github size={15} /> {t.code}
             </a>
           )}
           {demo && (
@@ -75,11 +80,11 @@ export default function ProjectCard({ project, accent = "amber" }) {
               rel="noopener noreferrer"
               className={`flex items-center gap-1.5 text-sm text-muted transition-colors ${styles.link}`}
             >
-              <ExternalLink size={15} /> Demo
+              <ExternalLink size={15} /> {t.demo}
             </a>
           )}
           {!github && !demo && (
-            <span className="font-mono text-xs text-muted">Aún sin publicar</span>
+            <span className="font-mono text-xs text-muted">{t.unpublished}</span>
           )}
         </div>
       </div>

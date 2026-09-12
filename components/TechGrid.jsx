@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Cloud, BarChart3, Database } from "lucide-react";
 import {
   SiReact,
@@ -43,7 +43,36 @@ const stack = [
   { name: "pandas", Icon: SiPandas },
 ];
 
+const COLS = 4;
+const ROWS = 4;
+
+// Orden serpentina: fila 0 izq→der, fila 1 der→izq, fila 2 izq→der,
+// fila 3 der→izq. waveOrder[k] = índice de celda (0-15) que le toca
+// animarse en el paso k del recorrido.
+const waveOrder = Array.from({ length: ROWS }, (_, row) => {
+  const rowIndices = Array.from({ length: COLS }, (_, col) => row * COLS + col);
+  return row % 2 === 0 ? rowIndices : rowIndices.reverse();
+}).flat();
+
+// Posición de cada celda dentro del recorrido (inverso de waveOrder).
+const wavePosition = new Array(waveOrder.length);
+waveOrder.forEach((cellIndex, position) => {
+  wavePosition[cellIndex] = position;
+});
+
+const ENTRANCE_STEP = 0.04;
+const ENTRANCE_DURATION = 0.4;
+const ENTRANCE_TOTAL = (stack.length - 1) * ENTRANCE_STEP + ENTRANCE_DURATION;
+
+const DOMINO_STEP = 0.08;
+const DOMINO_DURATION = 0.35;
+const DOMINO_PAUSE = 2; // pausa después de que termina la última tarjeta
+const DOMINO_CYCLE = (stack.length - 1) * DOMINO_STEP + DOMINO_DURATION + DOMINO_PAUSE;
+const DOMINO_REPEAT_DELAY = DOMINO_CYCLE - DOMINO_DURATION;
+
 export default function TechGrid() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="grid grid-cols-4 gap-3">
       {stack.map(({ name, Icon }, i) => (
@@ -51,16 +80,38 @@ export default function TechGrid() {
           key={name}
           initial={{ opacity: 0, y: 14, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
-          className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F39F6]/40 hover:bg-white hover:shadow-lg hover:shadow-[#4F39F6]/10"
+          transition={{ duration: ENTRANCE_DURATION, delay: i * ENTRANCE_STEP, ease: "easeOut" }}
+          className="rounded-2xl"
         >
-          <Icon
-            size={26}
-            className="shrink-0 text-[#0A0A0A]/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#4F39F6]"
-          />
-          <span className="text-center font-mono text-[9px] leading-tight text-muted">
-            {name}
-          </span>
+          {/* Este div interno lleva el "balanceo" tipo dominó, separado de
+              la animación de entrada de arriba para que no se pisen. */}
+          <motion.div
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : { y: [0, 9, 0] }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    duration: DOMINO_DURATION,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatDelay: DOMINO_REPEAT_DELAY,
+                    delay: ENTRANCE_TOTAL + wavePosition[i] * DOMINO_STEP,
+                  }
+            }
+            className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F39F6]/40 hover:bg-white hover:shadow-lg hover:shadow-[#4F39F6]/10"
+          >
+            <Icon
+              size={26}
+              className="shrink-0 text-[#0A0A0A]/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#4F39F6]"
+            />
+            <span className="text-center font-mono text-[9px] leading-tight text-muted">
+              {name}
+            </span>
+          </motion.div>
         </motion.div>
       ))}
     </div>

@@ -2,48 +2,64 @@
 
 import { useState } from "react";
 import { Menu, X, ImagePlus, BadgeCheck } from "lucide-react";
-import { profile } from "@/lib/data";
+import { useLanguage } from "./LanguageProvider";
 
-const links = [
-  { href: "#proyectos", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contacto", label: "Contact" },
-];
-
-const linkClasses =
-  "relative font-body text-sm text-[#0A0A0A] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#4F39F6] after:transition-transform after:duration-300 hover:after:scale-x-100";
-
-function Brand({ avatarSize = 40, iconSize = 16, textSize = "text-sm" }) {
+function AvatarBadge({ size = 56 }) {
   return (
-    <a href="#top" className="flex items-center gap-3">
+    <a
+      href="#top"
+      className="relative inline-flex shrink-0 items-center justify-center"
+      style={{ width: size, height: size }}
+      aria-label="Ir al inicio"
+    >
       {/* Placeholder circular para tu foto. Cuando tengas una, reemplaza
-          este span por: <Image src="/avatar.jpg" alt={profile.name}
-          width={avatarSize} height={avatarSize} className="rounded-full object-cover" /> */}
-      <span
-        style={{ width: avatarSize, height: avatarSize }}
-        className="flex shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted"
-      >
-        <ImagePlus size={iconSize} />
+          este span por: <Image src="/avatar.jpg" alt="Miguel Chavez"
+          width={size} height={size} className="rounded-full object-cover" /> */}
+      <span className="flex h-full w-full items-center justify-center rounded-full border border-border bg-surface text-muted">
+        <ImagePlus size={size * 0.4} />
       </span>
-      <span className="flex items-center gap-1.5">
-        <span className={`font-display ${textSize} font-semibold tracking-tight text-[#0A0A0A]`}>
-          {profile.name}
-        </span>
-        <BadgeCheck size={iconSize} className="text-verified" aria-label="Verificado" />
+      <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-white">
+        <BadgeCheck size={20} className="text-verified" aria-label="Verificado" />
       </span>
     </a>
   );
 }
 
+function LanguageToggle() {
+  const { lang, toggleLang } = useLanguage();
+
+  return (
+    <button
+      onClick={toggleLang}
+      aria-label={lang === "es" ? "Switch to English" : "Cambiar a español"}
+      className="rounded-full border border-border px-3 py-1.5 font-mono text-xs text-[#0A0A0A] transition-colors hover:border-[#4F39F6] hover:text-[#4F39F6]"
+    >
+      {lang === "es" ? "EN" : "ES"}
+    </button>
+  );
+}
+
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const links = [
+    { href: "#proyectos", label: t.nav.projects },
+    { href: "#skills", label: t.nav.skills },
+    { href: "#contacto", label: t.nav.contact },
+  ];
+
+  const linkClasses =
+    "relative font-body text-sm text-[#0A0A0A] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#4F39F6] after:transition-transform after:duration-300 hover:after:scale-x-100";
 
   return (
     <header className="relative z-10">
-      {/* Desktop: 3 columnas para que los links queden centrados de verdad
-          y el logo quede pegado a la derecha */}
+      {/* Desktop: 3 columnas — avatar a la izquierda, links centrados,
+          toggle de idioma a la derecha */}
       <nav className="hidden items-center py-6 md:grid md:grid-cols-[1fr_auto_1fr]">
-        <div />
+        <div className="justify-self-start">
+          <AvatarBadge />
+        </div>
         <ul className="flex items-center gap-10">
           {links.map((link) => (
             <li key={link.href}>
@@ -54,13 +70,12 @@ export default function Nav() {
           ))}
         </ul>
         <div className="justify-self-end">
-          <Brand />
+          <LanguageToggle />
         </div>
       </nav>
 
-      {/* Móvil: hamburguesa a la izquierda, logo a la derecha (misma
-          esquina que en desktop) */}
-      <div className="flex items-center justify-between py-5 md:hidden">
+      {/* Móvil: hamburguesa, avatar y toggle en una sola fila */}
+      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 py-5 md:hidden">
         <button
           onClick={() => setOpen(!open)}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -70,7 +85,11 @@ export default function Nav() {
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
 
-        <Brand avatarSize={36} iconSize={14} textSize="text-sm" />
+        <div className="justify-self-center">
+          <AvatarBadge size={44} />
+        </div>
+
+        <LanguageToggle />
       </div>
 
       {open && (

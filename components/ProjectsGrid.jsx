@@ -3,16 +3,18 @@
 import { useState } from "react";
 import { projects, projectCategories } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
-
-const filters = [
-  { id: "all", label: "Todos" },
-  ...projectCategories.map((c) => ({ id: c.id, label: c.shortLabel })),
-];
+import { useLanguage } from "./LanguageProvider";
 
 const accentById = Object.fromEntries(projectCategories.map((c) => [c.id, c.accent]));
 
 export default function ProjectsGrid() {
   const [active, setActive] = useState("all");
+  const { lang, t } = useLanguage();
+
+  const filters = [
+    { id: "all", label: t.projects.filters.all },
+    ...projectCategories.map((c) => ({ id: c.id, label: t.projects.filters[c.id] })),
+  ];
 
   const filtered = active === "all" ? projects : projects.filter((p) => p.category === active);
   const isCarousel = filtered.length > 1;
@@ -21,7 +23,7 @@ export default function ProjectsGrid() {
     <div>
       {/* Filtro por categoría */}
       <div className="mt-10 flex flex-wrap items-center gap-3">
-        <span className="font-mono text-xs text-muted">Filtrar por categoría</span>
+        <span className="font-mono text-xs text-muted">{t.projects.filterLabel}</span>
         {filters.map((f) => (
           <button
             key={f.id}
@@ -51,7 +53,7 @@ export default function ProjectsGrid() {
             key={project.title}
             className={isCarousel ? "w-[80%] shrink-0 snap-center sm:w-[60%] md:w-auto" : ""}
           >
-            <ProjectCard project={project} accent={accentById[project.category]} />
+            <ProjectCard project={project} accent={accentById[project.category]} lang={lang} t={t.projects} />
           </div>
         ))}
       </div>
