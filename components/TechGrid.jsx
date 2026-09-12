@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -65,8 +64,8 @@ const ENTRANCE_STEP = 0.04;
 const ENTRANCE_DURATION = 0.4;
 const ENTRANCE_TOTAL = (stack.length - 1) * ENTRANCE_STEP + ENTRANCE_DURATION;
 
-const DOMINO_STEP = 0.09;
-const DOMINO_DURATION = 0.5;
+const DOMINO_STEP = 0.12;
+const DOMINO_DURATION = 0.8;
 const DOMINO_PAUSE = 2; // pausa después de que termina la última tarjeta
 const DOMINO_CYCLE = (stack.length - 1) * DOMINO_STEP + DOMINO_DURATION + DOMINO_PAUSE;
 const DOMINO_REPEAT_DELAY = DOMINO_CYCLE - DOMINO_DURATION;
@@ -90,7 +89,7 @@ export default function TechGrid() {
               padre son lo que le da profundidad real al giro en vez de un
               simple achatado en 2D. */}
           <motion.div
-            animate={prefersReducedMotion ? undefined : { rotateY: [0, 360] }}
+            animate={prefersReducedMotion ? undefined : { rotateX: [0, 360] }}
             transition={
               prefersReducedMotion
                 ? undefined
