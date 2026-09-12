@@ -27,7 +27,7 @@ export default function Contact() {
   return (
     <section id="contacto" className="border-t border-border">
       <div className="mx-auto max-w-content px-6 py-20 md:py-28">
-        <p className="font-mono text-sm text-amber">{t.contact.eyebrow}</p>
+        <p className="font-mono text-sm text-accent">{t.contact.eyebrow}</p>
         <h2 className="mt-2 max-w-xl font-display text-3xl font-semibold tracking-tight text-text md:text-4xl">
           {t.contact.heading}
         </h2>
@@ -39,9 +39,9 @@ export default function Contact() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-md border border-border bg-surface p-5 transition-colors hover:border-amber"
+              className="group flex items-center gap-4 rounded-md border border-border bg-surface p-5 transition-colors hover:border-accent"
             >
-              <Icon size={20} className="shrink-0 text-muted transition-colors group-hover:text-amber" />
+              <Icon size={20} className="shrink-0 text-muted transition-colors group-hover:text-accent" />
               <div>
                 <p className="font-body text-sm text-text">{label}</p>
                 <p className="text-sm text-muted">{value}</p>

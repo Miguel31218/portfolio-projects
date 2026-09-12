@@ -1,7 +1,7 @@
 export default function SectionHeading({ eyebrow, title, description }) {
   return (
     <div className="max-w-lg">
-      <p className="font-mono text-sm text-amber">{eyebrow}</p>
+      <p className="font-mono text-sm text-accent">{eyebrow}</p>
       <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-text">
         {title}
       </h2>

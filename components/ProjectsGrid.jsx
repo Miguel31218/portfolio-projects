@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { projects, projectCategories } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
+import { CardHoverEffect } from "./CardHoverEffect";
 import { useLanguage } from "./LanguageProvider";
 
 const accentById = Object.fromEntries(projectCategories.map((c) => [c.id, c.accent]));
@@ -31,8 +32,8 @@ export default function ProjectsGrid() {
             aria-pressed={active === f.id}
             className={`rounded-full border px-4 py-1.5 font-mono text-xs transition-colors ${
               active === f.id
-                ? "border-amber bg-amber text-ink"
-                : "border-border text-muted hover:border-amber hover:text-amber"
+                ? "border-accent bg-accent text-ink"
+                : "border-border text-muted hover:border-accent hover:text-accent"
             }`}
           >
             {f.label}
@@ -40,23 +41,30 @@ export default function ProjectsGrid() {
         ))}
       </div>
 
-      {/* Grid en desktop / carrusel horizontal con scroll-snap en móvil */}
-      <div
+      {/* Grid en desktop / carrusel horizontal con scroll-snap en móvil.
+          El espaciado entre tarjetas ahora lo da el padding de cada ítem
+          (ver CardHoverEffect), no un gap del contenedor: así el halo de
+          hover tiene margen para "asomarse" alrededor de la tarjeta. */}
+      <CardHoverEffect
+        items={filtered}
+        getKey={(project) => project.title}
         className={
           isCarousel
-            ? "mt-8 -mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3"
-            : "mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            ? "mt-8 -mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 pb-4 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3"
+            : "mt-8 grid sm:grid-cols-2 lg:grid-cols-3"
         }
-      >
-        {filtered.map((project) => (
-          <div
-            key={project.title}
-            className={isCarousel ? "w-[80%] shrink-0 snap-center sm:w-[60%] md:w-auto" : ""}
-          >
-            <ProjectCard project={project} accent={accentById[project.category]} lang={lang} t={t.projects} />
-          </div>
-        ))}
-      </div>
+        itemClassName={() =>
+          isCarousel ? "w-[80%] shrink-0 snap-center sm:w-[60%] md:w-auto" : ""
+        }
+        renderItem={(project) => (
+          <ProjectCard
+            project={project}
+            accent={accentById[project.category]}
+            lang={lang}
+            t={t.projects}
+          />
+        )}
+      />
     </div>
   );
 }

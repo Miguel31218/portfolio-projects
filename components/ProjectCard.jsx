@@ -1,10 +1,10 @@
 import { Github, ExternalLink } from "lucide-react";
 
 const accentStyles = {
-  amber: {
-    gradient: "from-amber-dim to-ink",
-    badge: "border-amber/30 text-amber-dim",
-    link: "hover:text-amber",
+  indigo: {
+    gradient: "from-accent-dim to-ink",
+    badge: "border-accent/30 text-accent-dim",
+    link: "hover:text-accent",
   },
   mint: {
     gradient: "from-mint to-ink",
@@ -15,9 +15,9 @@ const accentStyles = {
 
 // lang: "es" | "en" — resuelve description/status (objetos bilingües en
 // data.js). t: t.projects del diccionario de traducciones (labels de UI).
-export default function ProjectCard({ project, accent = "amber", lang, t }) {
+export default function ProjectCard({ project, accent = "indigo", lang, t }) {
   const { title, description, tech, github, demo, featured, status } = project;
-  const styles = accentStyles[accent] ?? accentStyles.amber;
+  const styles = accentStyles[accent] ?? accentStyles.indigo;
 
   const descriptionText = description[lang];
   const statusText = status ? status[lang] : null;

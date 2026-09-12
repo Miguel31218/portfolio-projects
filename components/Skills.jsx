@@ -20,7 +20,7 @@ export default function Skills() {
       <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {categoryIds.map((categoryId) => (
           <div key={categoryId}>
-            <h3 className="font-mono text-sm text-amber">{t.skills.categories[categoryId]}</h3>
+            <h3 className="font-mono text-sm text-accent">{t.skills.categories[categoryId]}</h3>
             <ul className="mt-3 space-y-2 border-l border-border pl-4">
               {skills
                 .filter((s) => s.category === categoryId)
