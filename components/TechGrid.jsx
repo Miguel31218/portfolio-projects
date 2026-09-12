@@ -65,7 +65,7 @@ const ENTRANCE_DURATION = 0.4;
 const ENTRANCE_TOTAL = (stack.length - 1) * ENTRANCE_STEP + ENTRANCE_DURATION;
 
 const DOMINO_STEP = 0.09;
-const DOMINO_DURATION = 0.4;
+const DOMINO_DURATION = 0.5;
 const DOMINO_PAUSE = 2; // pausa después de que termina la última tarjeta
 const DOMINO_CYCLE = (stack.length - 1) * DOMINO_STEP + DOMINO_DURATION + DOMINO_PAUSE;
 const DOMINO_REPEAT_DELAY = DOMINO_CYCLE - DOMINO_DURATION;
@@ -74,7 +74,7 @@ export default function TechGrid() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div className="grid grid-cols-4 gap-3" style={{ perspective: "1200px" }}>
       {stack.map(({ name, Icon }, i) => (
         <motion.div
           key={name}
@@ -83,14 +83,13 @@ export default function TechGrid() {
           transition={{ duration: ENTRANCE_DURATION, delay: i * ENTRANCE_STEP, ease: "easeOut" }}
           className="rounded-2xl"
         >
-          {/* Este div interno lleva el "balanceo" tipo dominó, separado de
-              la animación de entrada de arriba para que no se pisen. */}
+          {/* Este div interno lleva el giro 3D tipo dominó, separado de la
+              animación de entrada de arriba para que no se pisen.
+              transformStyle: preserve-3d + el perspective del contenedor
+              padre son lo que le da profundidad real al giro en vez de un
+              simple achatado en 2D. */}
           <motion.div
-            animate={
-              prefersReducedMotion
-                ? undefined
-                : { y: [0, 16, 0], rotate: [0, 4, 0] }
-            }
+            animate={prefersReducedMotion ? undefined : { rotateY: [0, 360] }}
             transition={
               prefersReducedMotion
                 ? undefined
@@ -102,7 +101,7 @@ export default function TechGrid() {
                     delay: ENTRANCE_TOTAL + wavePosition[i] * DOMINO_STEP,
                   }
             }
-            style={{ transformOrigin: "top center" }}
+            style={{ transformStyle: "preserve-3d" }}
             className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F39F6]/40 hover:bg-white hover:shadow-lg hover:shadow-[#4F39F6]/10"
           >
             <Icon
