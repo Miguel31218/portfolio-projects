@@ -15,9 +15,11 @@ module.exports = {
         // Texto principal (títulos) y texto secundario (descripciones).
         text: "#373A3C",
         muted: "#828385",
-        // Acento de marca: se usa en todos los CTA, hovers y badges del sitio.
-        amber: "#F5A623",
-        "amber-dim": "#B9791A",
+        // Acento de marca: se usa en todos los CTA, hovers y badges del
+        // sitio debajo del Hero (antes era ámbar; unificado a este morado
+        // para que combine con el acento del Hero).
+        accent: "#4F39F6",
+        "accent-dim": "#302398",
         // Acento reservado para "Ciencia de Datos" (más oscuro que en el
         // tema anterior, para que siga siendo legible sobre fondo blanco).
         mint: "#0D9488",
@@ -54,4 +56,3 @@ module.exports = {
   },
   plugins: [],
 };
-
