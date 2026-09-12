@@ -1,7 +1,6 @@
-
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Cloud, BarChart3, Database } from "lucide-react";
 import {
@@ -64,7 +63,7 @@ function TechCard({ name, Icon }) {
       key={name}
       layout
       transition={{ duration: 1.5, type: "spring" }}
-      className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10"
+      className="group flex aspect-[16/17] flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10"
     >
       <Icon
         size={26}
@@ -76,14 +75,10 @@ function TechCard({ name, Icon }) {
 }
 
 export default function TechGrid() {
-  const prefersReducedMotion = useReducedMotion();
   const timeoutRef = useRef(null);
   const [order, setOrder] = useState(stack);
 
   useEffect(() => {
-    // Respeta "reducir movimiento": deja el orden fijo, sin reshuffle.
-    if (prefersReducedMotion) return;
-
     const reshuffle = () => {
       setOrder(shuffle(stack));
       timeoutRef.current = setTimeout(reshuffle, SHUFFLE_INTERVAL);
@@ -94,7 +89,7 @@ export default function TechGrid() {
     reshuffle();
 
     return () => clearTimeout(timeoutRef.current);
-  }, [prefersReducedMotion]);
+  }, []);
 
   return (
     <div className="grid grid-cols-4 gap-1">
