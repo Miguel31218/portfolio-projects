@@ -1,7 +1,7 @@
 "use client";
 
 import Nav from "./Nav";
-import TechGrid from "./TechGrid";
+import ShuffleGrid from "./ShuffleGrid";
 import { useLanguage } from "./LanguageProvider";
 
 export default function Hero() {
@@ -33,7 +33,7 @@ export default function Hero() {
           </a>
         </div>
 
-        <TechGrid />
+        <ShuffleGrid />
       </div>
     </section>
   );
