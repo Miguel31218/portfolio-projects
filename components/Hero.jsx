@@ -12,7 +12,7 @@ export default function Hero() {
       <Nav />
 
       <div className="grid grid-cols-1 items-center gap-10 py-10 md:grid-cols-2 md:gap-8 md:py-16">
-        <div className="animate-fade-up">
+        <div className="animate-fade-up md:-mt-5">
           <span className="mb-4 block font-body text-sm font-medium text-[#6765FF] md:text-base">
             {t.hero.greeting}
           </span>

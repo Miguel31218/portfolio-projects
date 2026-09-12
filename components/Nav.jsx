@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, ImagePlus, BadgeCheck, Languages } from "lucide-react";
+import { Menu, X, ImagePlus, BadgeCheck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 function AvatarBadge({ size = 56 }) {
@@ -39,16 +39,28 @@ function LanguageToggle() {
     <button
       onClick={toggleLang}
       role="switch"
-      aria-checked={isEn}
+      aria-checked={!isEn}
       aria-label={isEn ? "Cambiar a español" : "Switch to English"}
-      className="relative flex h-8 w-14 shrink-0 items-center rounded-full bg-gradient-to-r from-accent to-accent-dim px-1 transition-colors"
+      className="relative flex h-8 w-16 shrink-0 items-center rounded-full bg-accent p-1"
     >
       <span
-        className={`flex h-6 w-6 items-center justify-center rounded-full bg-white text-accent shadow-md transition-transform duration-300 ${
-          isEn ? "translate-x-6" : "translate-x-0"
+        className={`absolute top-1 h-6 w-7 rounded-full bg-white shadow-md transition-transform duration-300 ${
+          isEn ? "translate-x-0" : "translate-x-7"
+        }`}
+      />
+      <span
+        className={`relative z-10 flex-1 text-center font-mono text-[10px] font-semibold transition-colors duration-300 ${
+          isEn ? "text-accent" : "text-white"
         }`}
       >
-        <Languages size={14} />
+        EN
+      </span>
+      <span
+        className={`relative z-10 flex-1 text-center font-mono text-[10px] font-semibold transition-colors duration-300 ${
+          isEn ? "text-white" : "text-accent"
+        }`}
+      >
+        ES
       </span>
     </button>
   );

@@ -6,7 +6,7 @@ import { translations } from "@/lib/translations";
 const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState("es");
+  const [lang, setLang] = useState("en");
 
   // Recupera el idioma guardado (si el usuario ya lo había cambiado antes)
   useEffect(() => {

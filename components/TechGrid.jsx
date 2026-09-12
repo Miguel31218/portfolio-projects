@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Cloud, BarChart3, Database } from "lucide-react";
 import {
   SiReact,
@@ -43,76 +44,59 @@ const stack = [
   { name: "pandas", Icon: SiPandas },
 ];
 
-const COLS = 4;
-const ROWS = 4;
+const SHUFFLE_INTERVAL = 3500; // ms — cada cuánto se reordenan las tarjetas
+const TRANSITION_DURATION = 0.9; // s — qué tan suave es cada reordenamiento
 
-// Orden serpentina: fila 0 izq→der, fila 1 der→izq, fila 2 izq→der,
-// fila 3 der→izq. waveOrder[k] = índice de celda (0-15) que le toca
-// animarse en el paso k del recorrido.
-const waveOrder = Array.from({ length: ROWS }, (_, row) => {
-  const rowIndices = Array.from({ length: COLS }, (_, col) => row * COLS + col);
-  return row % 2 === 0 ? rowIndices : rowIndices.reverse();
-}).flat();
+function shuffle(array) {
+  const result = [...array];
+  let currentIndex = result.length;
+  while (currentIndex !== 0) {
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [result[currentIndex], result[randomIndex]] = [result[randomIndex], result[currentIndex]];
+  }
+  return result;
+}
 
-// Posición de cada celda dentro del recorrido (inverso de waveOrder).
-const wavePosition = new Array(waveOrder.length);
-waveOrder.forEach((cellIndex, position) => {
-  wavePosition[cellIndex] = position;
-});
-
-const ENTRANCE_STEP = 0.04;
-const ENTRANCE_DURATION = 0.4;
-const ENTRANCE_TOTAL = (stack.length - 1) * ENTRANCE_STEP + ENTRANCE_DURATION;
-
-const DOMINO_STEP = 0.12;
-const DOMINO_DURATION = 0.8;
-const DOMINO_PAUSE = 2; // pausa después de que termina la última tarjeta
-const DOMINO_CYCLE = (stack.length - 1) * DOMINO_STEP + DOMINO_DURATION + DOMINO_PAUSE;
-const DOMINO_REPEAT_DELAY = DOMINO_CYCLE - DOMINO_DURATION;
+function TechCard({ name, Icon }) {
+  return (
+    <motion.div
+      key={name}
+      layout
+      transition={{ duration: TRANSITION_DURATION, type: "spring", bounce: 0.2 }}
+      className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10 md:m-[7px]"
+    >
+      <Icon
+        size={26}
+        className="shrink-0 text-[#0A0A0A]/70 transition-all duration-300 group-hover:scale-110 group-hover:text-accent"
+      />
+      <span className="text-center font-mono text-[9px] leading-tight text-muted">{name}</span>
+    </motion.div>
+  );
+}
 
 export default function TechGrid() {
   const prefersReducedMotion = useReducedMotion();
+  const timeoutRef = useRef(null);
+  const [order, setOrder] = useState(stack);
+
+  useEffect(() => {
+    // Respeta "reducir movimiento": deja el orden fijo, sin reshuffle.
+    if (prefersReducedMotion) return;
+
+    const reshuffle = () => {
+      setOrder(shuffle(stack));
+      timeoutRef.current = setTimeout(reshuffle, SHUFFLE_INTERVAL);
+    };
+    timeoutRef.current = setTimeout(reshuffle, SHUFFLE_INTERVAL);
+
+    return () => clearTimeout(timeoutRef.current);
+  }, [prefersReducedMotion]);
 
   return (
-    <div className="grid grid-cols-4 gap-3" style={{ perspective: "1200px" }}>
-      {stack.map(({ name, Icon }, i) => (
-        <motion.div
-          key={name}
-          initial={{ opacity: 0, y: 14, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: ENTRANCE_DURATION, delay: i * ENTRANCE_STEP, ease: "easeOut" }}
-          className="rounded-2xl"
-        >
-          {/* Este div interno lleva el giro 3D tipo dominó, separado de la
-              animación de entrada de arriba para que no se pisen.
-              transformStyle: preserve-3d + el perspective del contenedor
-              padre son lo que le da profundidad real al giro en vez de un
-              simple achatado en 2D. */}
-          <motion.div
-            animate={prefersReducedMotion ? undefined : { rotateX: 360 }}
-            transition={
-              prefersReducedMotion
-                ? undefined
-                : {
-                    duration: DOMINO_DURATION,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                    repeatDelay: DOMINO_REPEAT_DELAY,
-                    delay: ENTRANCE_TOTAL + wavePosition[i] * DOMINO_STEP,
-                  }
-            }
-            style={{ transformStyle: "preserve-3d" }}
-            className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F39F6]/40 hover:bg-white hover:shadow-lg hover:shadow-[#4F39F6]/10"
-          >
-            <Icon
-              size={26}
-              className="shrink-0 text-[#0A0A0A]/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#4F39F6]"
-            />
-            <span className="text-center font-mono text-[9px] leading-tight text-muted">
-              {name}
-            </span>
-          </motion.div>
-        </motion.div>
+    <div className="grid grid-cols-4 gap-3">
+      {order.map((item) => (
+        <TechCard key={item.name} {...item} />
       ))}
     </div>
   );
