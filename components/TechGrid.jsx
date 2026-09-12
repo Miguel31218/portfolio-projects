@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -77,7 +78,7 @@ function TechCard({ name, Icon }) {
 export default function TechGrid() {
   const prefersReducedMotion = useReducedMotion();
   const timeoutRef = useRef(null);
-  const [order, setOrder] = useState(() => shuffle(stack));
+  const [order, setOrder] = useState(stack);
 
   useEffect(() => {
     // Respeta "reducir movimiento": deja el orden fijo, sin reshuffle.
