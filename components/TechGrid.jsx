@@ -45,7 +45,6 @@ const stack = [
 ];
 
 const SHUFFLE_INTERVAL = 3500; // ms — cada cuánto se reordenan las tarjetas
-const TRANSITION_DURATION = 0.9; // s — qué tan suave es cada reordenamiento
 
 function shuffle(array) {
   const result = [...array];
@@ -63,8 +62,8 @@ function TechCard({ name, Icon }) {
     <motion.div
       key={name}
       layout
-      transition={{ duration: TRANSITION_DURATION, type: "spring", bounce: 0.2 }}
-      className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10 md:m-[7px]"
+      transition={{ duration: 1.5, type: "spring" }}
+      className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white hover:shadow-lg hover:shadow-accent/10"
     >
       <Icon
         size={26}
@@ -78,7 +77,7 @@ function TechCard({ name, Icon }) {
 export default function TechGrid() {
   const prefersReducedMotion = useReducedMotion();
   const timeoutRef = useRef(null);
-  const [order, setOrder] = useState(stack);
+  const [order, setOrder] = useState(() => shuffle(stack));
 
   useEffect(() => {
     // Respeta "reducir movimiento": deja el orden fijo, sin reshuffle.
@@ -88,13 +87,16 @@ export default function TechGrid() {
       setOrder(shuffle(stack));
       timeoutRef.current = setTimeout(reshuffle, SHUFFLE_INTERVAL);
     };
-    timeoutRef.current = setTimeout(reshuffle, SHUFFLE_INTERVAL);
+    // Se dispara de inmediato (igual que el código original) y luego se
+    // reprograma solo cada SHUFFLE_INTERVAL — así el primer reordenamiento
+    // se ve enseguida, no recién a los 3.5s.
+    reshuffle();
 
     return () => clearTimeout(timeoutRef.current);
   }, [prefersReducedMotion]);
 
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div className="grid grid-cols-4 gap-1">
       {order.map((item) => (
         <TechCard key={item.name} {...item} />
       ))}
