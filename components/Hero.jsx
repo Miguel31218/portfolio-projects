@@ -27,7 +27,7 @@ export default function Hero() {
 
           <a
             href="#contacto"
-            className="inline-block rounded bg-[#4F39F6] px-4 py-2 font-body text-sm font-medium text-white transition-all hover:opacity-90 active:scale-95"
+            className="inline-block rounded bg-[#4F39F6] px-4 py-2 font-body text-sm font-medium text-white shadow-[3px_3px_0px_black] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none active:scale-95"
           >
             {t.hero.cta}
           </a>

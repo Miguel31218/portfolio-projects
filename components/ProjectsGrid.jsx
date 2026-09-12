@@ -32,7 +32,7 @@ export default function ProjectsGrid() {
             aria-pressed={active === f.id}
             className={`rounded-full border px-4 py-1.5 font-mono text-xs transition-colors ${
               active === f.id
-                ? "border-accent bg-accent text-ink"
+                ? "border-accent bg-accent text-white"
                 : "border-border text-muted hover:border-accent hover:text-accent"
             }`}
           >

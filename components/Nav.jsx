@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, ImagePlus, BadgeCheck } from "lucide-react";
+import { Menu, X, ImagePlus, BadgeCheck, Languages } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 function AvatarBadge({ size = 56 }) {
@@ -33,14 +33,23 @@ function AvatarBadge({ size = 56 }) {
 
 function LanguageToggle() {
   const { lang, toggleLang } = useLanguage();
+  const isEn = lang === "en";
 
   return (
     <button
       onClick={toggleLang}
-      aria-label={lang === "es" ? "Switch to English" : "Cambiar a español"}
-      className="rounded-full border border-border px-3 py-1.5 font-mono text-xs text-[#0A0A0A] transition-colors hover:border-[#4F39F6] hover:text-[#4F39F6]"
+      role="switch"
+      aria-checked={isEn}
+      aria-label={isEn ? "Cambiar a español" : "Switch to English"}
+      className="relative flex h-8 w-14 shrink-0 items-center rounded-full bg-gradient-to-r from-accent to-accent-dim px-1 transition-colors"
     >
-      {lang === "es" ? "EN" : "ES"}
+      <span
+        className={`flex h-6 w-6 items-center justify-center rounded-full bg-white text-accent shadow-md transition-transform duration-300 ${
+          isEn ? "translate-x-6" : "translate-x-0"
+        }`}
+      >
+        <Languages size={14} />
+      </span>
     </button>
   );
 }
@@ -64,7 +73,7 @@ export default function Nav() {
           toggle de idioma a la derecha */}
       <nav className="hidden items-center py-6 md:grid md:grid-cols-[1fr_auto_1fr]">
         <div className="justify-self-start">
-          <AvatarBadge size={68} />
+          <AvatarBadge size={88} />
         </div>
         <ul className="flex items-center gap-10">
           {links.map((link) => (
