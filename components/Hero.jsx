@@ -1,43 +1,36 @@
 import { profile } from "@/lib/data";
 import Nav from "./Nav";
-import { HeroHighlight, Highlight } from "./HeroHighlight";
+import ShuffleGrid from "./ShuffleGrid";
 
 export default function Hero() {
   return (
-    <HeroHighlight id="top">
+    <section id="top" className="mx-auto max-w-content px-6">
       <Nav />
 
-      <div className="mx-auto max-w-content px-6 pb-16 pt-6 md:pb-24 md:pt-10">
-        <div className="max-w-2xl animate-fade-up">
-          <p className="font-mono text-xs text-muted">{profile.location}</p>
-
-          <p className="mt-4 font-mono text-sm font-medium tracking-wide text-lavender">
+      <div className="grid grid-cols-1 items-center gap-10 py-10 md:grid-cols-2 md:gap-8 md:py-16">
+        <div className="animate-fade-up">
+          <span className="mb-4 block font-body text-sm font-medium text-[#6765FF] md:text-base">
             {profile.greeting}
-          </p>
+          </span>
 
-          <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.2] tracking-tight text-text sm:text-5xl md:text-6xl">
-            Desarrollador Full Stack —{" "}
-            <Highlight>SaaS &amp; Automatización con IA</Highlight>
+          <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-[#0A0A0A] sm:text-5xl md:text-6xl">
+            {profile.role}
           </h1>
 
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-muted">{profile.bio}</p>
+          <p className="my-4 max-w-lg text-base leading-relaxed text-[#314158] md:my-6 md:text-lg">
+            {profile.bio}
+          </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#proyectos"
-              className="rounded-sm bg-lavender px-5 py-2.5 font-body text-sm font-medium text-ink transition-opacity hover:opacity-90"
-            >
-              Ver proyectos
-            </a>
-            <a
-              href="#contacto"
-              className="rounded-sm border border-border bg-white px-5 py-2.5 font-body text-sm font-medium text-text transition-colors hover:border-lavender hover:text-text"
-            >
-              Hablemos
-            </a>
-          </div>
+          <a
+            href="#contacto"
+            className="inline-block rounded bg-[#4F39F6] px-4 py-2 font-body text-sm font-medium text-white transition-all hover:opacity-90 active:scale-95"
+          >
+            Contact
+          </a>
         </div>
+
+        <ShuffleGrid />
       </div>
-    </HeroHighlight>
+    </section>
   );
 }
