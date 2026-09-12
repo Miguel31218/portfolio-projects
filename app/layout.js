@@ -1,6 +1,8 @@
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/lib/data";
+import { translations } from "@/lib/translations";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -23,9 +25,11 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+// El <head> estático (metadata) no puede cambiar con el toggle de idioma
+// del cliente, así que usa el español como versión por defecto.
 export const metadata = {
-  title: `${profile.name} — ${profile.role}`,
-  description: profile.bio,
+  title: `${profile.name} — ${translations.es.hero.role}`,
+  description: translations.es.hero.bio,
 };
 
 export default function RootLayout({ children }) {
@@ -34,7 +38,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} bg-white text-text font-body antialiased`}
       >
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
