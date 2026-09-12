@@ -5,6 +5,9 @@ import { Menu, X, ImagePlus, BadgeCheck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 function AvatarBadge({ size = 56 }) {
+  const badgeSize = Math.round(size * 0.36);
+  const badgeIconSize = Math.round(size * 0.3);
+
   return (
     <a
       href="#top"
@@ -18,8 +21,11 @@ function AvatarBadge({ size = 56 }) {
       <span className="flex h-full w-full items-center justify-center rounded-full border border-border bg-surface text-muted">
         <ImagePlus size={size * 0.4} />
       </span>
-      <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-white">
-        <BadgeCheck size={20} className="text-verified" aria-label="Verificado" />
+      <span
+        style={{ width: badgeSize, height: badgeSize }}
+        className="absolute -bottom-1 -right-1 flex items-center justify-center rounded-full border-2 border-white bg-white"
+      >
+        <BadgeCheck size={badgeIconSize} className="text-verified" aria-label="Verificado" />
       </span>
     </a>
   );
@@ -58,7 +64,7 @@ export default function Nav() {
           toggle de idioma a la derecha */}
       <nav className="hidden items-center py-6 md:grid md:grid-cols-[1fr_auto_1fr]">
         <div className="justify-self-start">
-          <AvatarBadge />
+          <AvatarBadge size={68} />
         </div>
         <ul className="flex items-center gap-10">
           {links.map((link) => (

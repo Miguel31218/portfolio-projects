@@ -64,8 +64,8 @@ const ENTRANCE_STEP = 0.04;
 const ENTRANCE_DURATION = 0.4;
 const ENTRANCE_TOTAL = (stack.length - 1) * ENTRANCE_STEP + ENTRANCE_DURATION;
 
-const DOMINO_STEP = 0.08;
-const DOMINO_DURATION = 0.35;
+const DOMINO_STEP = 0.09;
+const DOMINO_DURATION = 0.4;
 const DOMINO_PAUSE = 2; // pausa después de que termina la última tarjeta
 const DOMINO_CYCLE = (stack.length - 1) * DOMINO_STEP + DOMINO_DURATION + DOMINO_PAUSE;
 const DOMINO_REPEAT_DELAY = DOMINO_CYCLE - DOMINO_DURATION;
@@ -89,7 +89,7 @@ export default function TechGrid() {
             animate={
               prefersReducedMotion
                 ? undefined
-                : { y: [0, 9, 0] }
+                : { y: [0, 16, 0], rotate: [0, 4, 0] }
             }
             transition={
               prefersReducedMotion
@@ -102,6 +102,7 @@ export default function TechGrid() {
                     delay: ENTRANCE_TOTAL + wavePosition[i] * DOMINO_STEP,
                   }
             }
+            style={{ transformOrigin: "top center" }}
             className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F39F6]/40 hover:bg-white hover:shadow-lg hover:shadow-[#4F39F6]/10"
           >
             <Icon
