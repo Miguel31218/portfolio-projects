@@ -1,80 +1,25 @@
-# Portafolio Personal
+### Hola, soy Miguel Chavez 👋 
+*Full Stack Developer & AI Automation Specialist | Founder of Lynksit*
 
-Portafolio web construido con Next.js (App Router), React, Tailwind CSS y Lucide React.
+---
 
-## Estructura del proyecto
+### 🚀 Sobre mí
+Apasionado por la tecnología, la automatización y el desarrollo de productos digitales escalables. Cuento con experiencia en el sector público y privado, combinando la ingeniería de software moderna con analítica de datos e inteligencia artificial.
 
-```
-portfolio/
-├── app/
-│   ├── layout.js        # Layout raíz: fuentes, metadata
-│   ├── page.js           # Página principal: ensambla las secciones
-│   └── globals.css       # Estilos base de Tailwind
-├── components/
-│   ├── Nav.jsx            # Barra de navegación
-│   ├── Hero.jsx           # Sección hero con terminal simulado
-│   ├── Projects.jsx       # Sección de proyectos web + SectionHeading reutilizable
-│   ├── ProjectCard.jsx    # Tarjeta de proyecto reutilizable
-│   ├── DataScience.jsx    # Sección "Próximamente" de ciencia de datos
-│   ├── Skills.jsx         # Sección de habilidades técnicas
-│   └── Contact.jsx        # Sección de contacto + footer
-├── lib/
-│   └── data.js            # TODO tu contenido editable: proyectos, skills, contacto
-├── tailwind.config.js     # Paleta de colores y tipografías personalizadas
-└── package.json
-```
+- 🔭 Actualmente liderando el desarrollo de **Lynksit**, una plataforma SaaS multi-tenant orientada a la automatización de ventas y atención al cliente mediante IA.
+- 🛠️ **Stack principal:** Next.js, TypeScript, Node.js, Express, Tailwind CSS, Supabase, PostgreSQL y Python.
+- 📊 **Datos y Cloud:** Databricks, Power BI, Automatizaciones con Python/PowerShell y despliegues en Vercel, Railway y Cloudflare.
 
-## 1. Editar tu contenido
+---
 
-Antes de nada, abre **`lib/data.js`** y reemplaza:
-- `profile`: tu nombre, rol y bio.
-- `webProjects`: tus proyectos reales (título, descripción, tecnologías, links de GitHub y demo).
-- `dataProjects`: tus futuros proyectos de ciencia de datos.
-- `skills`: tus tecnologías, agrupadas por categoría.
-- `contact`: tu email, GitHub, LinkedIn y WhatsApp.
+### 💼 Proyecto Destacado: Lynksit
+Una solución SaaS diseñada para automatizar interacciones de ventas y flujos de agentes de IA a través de WhatsApp Business.
+* **Arquitectura:** Monorepo/Serverless con frontend en Next.js y backend robusto en Node.js/Express.
+* **IA y Automatización:** Integración de modelos avanzados de lenguaje para respuestas inteligentes y gestión de catálogos automatizados.
 
-No necesitas tocar ningún componente para actualizar el contenido.
+---
 
-## 2. Instalación local
-
-Requiere Node.js 18.17 o superior.
-
-```bash
-# 1. Entra a la carpeta del proyecto
-cd portfolio
-
-# 2. Instala dependencias
-npm install
-
-# 3. Levanta el servidor de desarrollo
-npm run dev
-```
-
-Abre [http://localhost:3000](http://localhost:3000) para verlo en tu navegador.
-
-## 3. Subir a GitHub
-
-```bash
-git init
-git add .
-git commit -m "Primer commit: portafolio personal"
-git branch -M main
-git remote add origin https://github.com/tu-usuario/tu-repo.git
-git push -u origin main
-```
-
-## 4. Desplegar en Vercel
-
-1. Entra a [vercel.com](https://vercel.com) e inicia sesión con tu cuenta de GitHub.
-2. Haz clic en **Add New → Project**.
-3. Selecciona el repositorio que acabas de subir.
-4. Vercel detecta automáticamente que es un proyecto Next.js — no necesitas cambiar ninguna configuración.
-5. Haz clic en **Deploy**.
-
-En un par de minutos tendrás tu portafolio en una URL pública (`tu-proyecto.vercel.app`). Cada vez que hagas `git push` a `main`, Vercel volverá a desplegar automáticamente.
-
-## Notas
-
-- El modo oscuro está activo por defecto y es el único tema (diseño "dark-mode profesional" como se pidió). Si más adelante quieres un toggle claro/oscuro, se puede añadir con la clase `dark` de Tailwind y un pequeño estado en `Nav.jsx`.
-- Los iconos usados (`lucide-react`) ya están declarados en `package.json`, no requieren configuración adicional.
-- Las animaciones respetan `prefers-reduced-motion` (ver `globals.css`).
+### 📊 Estadísticas de GitHub
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=https://github.com/Miguel31218&show_icons=true&theme=radical&hide_border=true" alt="GitHub Stats" />
+</p>
