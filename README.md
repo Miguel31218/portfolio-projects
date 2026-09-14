@@ -16,7 +16,7 @@ Apasionado por la tecnología, la automatización y el desarrollo de productos d
 Una solución SaaS diseñada para automatizar interacciones de ventas y flujos de agentes de IA a través de WhatsApp Business.
 * **Arquitectura:** Monorepo/Serverless con frontend en Next.js y backend robusto en Node.js/Express.
 * **IA y Automatización:** Integración de modelos avanzados de lenguaje para respuestas inteligentes y gestión de catálogos automatizados.
-
+* **URL del proyecto:** https://lynksit.vercel.app/
 ---
 
 ### 📊 Estadísticas de GitHub
