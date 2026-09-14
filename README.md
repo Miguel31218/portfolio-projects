@@ -7,7 +7,7 @@
 Apasionado por la tecnología, la automatización y el desarrollo de productos digitales escalables. Cuento con experiencia en el sector público y privado, combinando la ingeniería de software moderna con analítica de datos e inteligencia artificial.
 
 - 🔭 Actualmente liderando el desarrollo de **Lynksit**, una plataforma SaaS multi-tenant orientada a la automatización de ventas y atención al cliente mediante IA.
-- 🛠️ **Stack principal:** Next.js, TypeScript, Node.js, Express, Tailwind CSS, Supabase, PostgreSQL y Python.
+- 🛠️ **Stack principal:** Next.js, TypeScript, JavaScript, Node.js, Express, Tailwind CSS, Supabase, PostgreSQL y Python.
 - 📊 **Datos y Cloud:** Databricks, Power BI, Automatizaciones con Python/PowerShell y despliegues en Vercel, Railway y Cloudflare.
 
 ---
